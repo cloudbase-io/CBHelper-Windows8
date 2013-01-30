@@ -1,0 +1,16 @@
+﻿<Page
+    x:Class="CBHelperDemo.CBNotificationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CBHelperDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Register for Notifications" HorizontalAlignment="Left" Margin="165,139,0,0" VerticalAlignment="Top" Click="Button_Click_1" Height="65" Width="409"/>
+        <TextBox x:Name="NotificationTextBox" HorizontalAlignment="Left" Margin="165,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="409" Height="41" ToolTipService.ToolTip="Application Code" FontSize="20" Text="Notification Text"/>
+        <Button Content="Push Toast" HorizontalAlignment="Left" Margin="453,369,0,0" VerticalAlignment="Top" Height="65" Width="121" Click="Button_Click_2"/>
+
+    </Grid>
+</Page>

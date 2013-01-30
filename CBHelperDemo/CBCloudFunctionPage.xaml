@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="CBHelperDemo.CBCloudFunctionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CBHelperDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <TextBox x:Name="FunctionCodeBox" HorizontalAlignment="Left" Margin="165,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="409" Height="41" ToolTipService.ToolTip="Application Code" FontSize="20" Text="CloudFunction Code"/>
+        <Button x:Name="ExecuteFunctionButton" Content="Execute CloudFunction" HorizontalAlignment="Left" Margin="165,203,0,0" VerticalAlignment="Top" Height="65" Width="409" Click="ExecuteFunctionButton_Click"/>
+        <Button x:Name="ExecuteAppletButton" HorizontalAlignment="Left" Margin="165,294,0,0" VerticalAlignment="Top" Height="65" Width="409" Content="Execute Applet" Click="ExecuteAppletButton_Click"/>
+        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Margin="165,398,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="409"/>
+
+    </Grid>
+</Page>

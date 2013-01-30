@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="2392cloudbase.io.cloudbase.iotestapplication" Publisher="CN=D25482DD-BC16-4B85-A06F-5BF476CBC933" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>cloudbase.io test application</DisplayName>
+    <PublisherDisplayName>cloudbase.io</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CBHelperDemo.App">
+      <VisualElements DisplayName="cloudbase.io test application" Logo="Assets\facebook_logo.png" SmallLogo="Assets\facebook_logo_small.png" Description="CBHelperDemo" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" ShortName="CBHelper Demo" />
+        <SplashScreen Image="Assets\cloudbase_splash.png" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="CBHelperDemo.CBDataPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CBHelperDemo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid x:Name="InsertButton" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Button Content="Insert Object" HorizontalAlignment="Left" Margin="165,139,0,0" VerticalAlignment="Top" Click="Button_Click_1" Height="65" Width="272"/>
+        <Button x:Name="InsertFileButton" Content="Insert Object With File" HorizontalAlignment="Left" Margin="165,239,0,0" VerticalAlignment="Top" Height="65" Width="272" Click="InsertFileButton_Click"/>
+        <Button x:Name="SearchObjectButton" Content="Search Object" HorizontalAlignment="Left" Margin="165,338,0,0" VerticalAlignment="Top" Height="65" Width="272" Click="SearchObjectButton_Click"/>
+        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Margin="165,465,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="272"/>
+
+    </Grid>
+</Page>
