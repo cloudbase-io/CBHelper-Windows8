@@ -353,7 +353,7 @@ namespace Cloudbase
             string url = this.getUrl() + this.appCode + "/register";
             Dictionary<string, string> values = new Dictionary<string, string>();
             var token = HardwareIdentification.GetPackageSpecificToken(null);
-            values.Add("device_type", "Windown8");
+            values.Add("device_type", "Windows8");
             values.Add("device_name", "Windows8-Device");
             values.Add("device_model", this.GetHardwareId());
             var region = new Windows.Globalization.GeographicRegion();           
