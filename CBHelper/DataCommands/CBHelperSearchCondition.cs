@@ -295,6 +295,10 @@ namespace Cloudbase.DataCommands
                     case CBConditionOperator.CBOperatorExists:
                     case CBConditionOperator.CBOperatorNe:
                     case CBConditionOperator.CBOperatorIn:
+                    case CBConditionOperator.CBOperatorBigger:
+                    case CBConditionOperator.CBOperatorBiggerOrEqual:
+                    case CBConditionOperator.CBOperatorLess:
+                    case CBConditionOperator.CBOperatorLessOrEqual:
                     case CBConditionOperator.CBOperatorNin:
                     case CBConditionOperator.CBOperatorSize:
                     case CBConditionOperator.CBOperatorType:
