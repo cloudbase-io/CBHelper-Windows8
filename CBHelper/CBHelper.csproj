@@ -106,6 +106,7 @@
     <Compile Include="DataCommands\CBDataAggregationCommandProject.cs" />
     <Compile Include="DataCommands\CBDataAggregationCommandUnwind.cs" />
     <Compile Include="DataCommands\CBHelperSearchCondition.cs" />
+    <Compile Include="GeoDataStream\CBGeoDataStream.cs" />
     <Compile Include="MD5.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -117,6 +118,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
