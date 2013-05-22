@@ -11,7 +11,8 @@
         <TextBox x:Name="FunctionCodeBox" HorizontalAlignment="Left" Margin="165,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="409" Height="41" ToolTipService.ToolTip="Application Code" FontSize="20" Text="CloudFunction Code"/>
         <Button x:Name="ExecuteFunctionButton" Content="Execute CloudFunction" HorizontalAlignment="Left" Margin="165,203,0,0" VerticalAlignment="Top" Height="65" Width="409" Click="ExecuteFunctionButton_Click"/>
         <Button x:Name="ExecuteAppletButton" HorizontalAlignment="Left" Margin="165,294,0,0" VerticalAlignment="Top" Height="65" Width="409" Content="Execute Applet" Click="ExecuteAppletButton_Click"/>
-        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Margin="165,398,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="409"/>
+        <TextBlock x:Name="OutputText" HorizontalAlignment="Left" Margin="165,446,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="264" Width="409"/>
+        <Button x:Name="ExecuteAppletButton_Copy" HorizontalAlignment="Left" Margin="165,364,0,0" VerticalAlignment="Top" Height="65" Width="409" Content="Execute Shared API" Click="ExecuteAppletButton_Copy_Click"/>
 
     </Grid>
 </Page>

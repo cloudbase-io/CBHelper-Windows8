@@ -74,5 +74,17 @@ namespace CBHelperDemo
                 return true;
             });
         }
+
+        private void ExecuteAppletButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, string> Params = new Dictionary<string,string>();
+            Params.Add("shared_message", "Hello from the Windows 8 demo application");
+
+            App.helper.ExecuteSharedApi("f_demo-application_demo-shared-api", "cb_demo,1!", Params, delegate(CBResponseInfo resp)
+            {
+                this.OutputText.Text = "Applet output: " + resp.OutputString;
+                return true;
+            });
+        }
     }
 }
