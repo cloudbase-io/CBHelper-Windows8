@@ -281,6 +281,12 @@ namespace Cloudbase
         /// </summary>
         public Geoposition CurrentLocation;
         private string apiUrl;
+        public string ApiUrl
+        {
+            get { return apiUrl; }
+            set { apiUrl = value; }
+        }
+
         private string httpRequestBoundary;
         private bool isHttps;
         /// <summary>
