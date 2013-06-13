@@ -368,9 +368,12 @@ namespace Cloudbase
 
             this.sendRequest("register-device", url, values, null, null, delegate(CBResponseInfo resp) {
                 // TODO: Parse response and get SessionID
-                this.sessionId = Convert.ToString(((Dictionary<string, object>)resp.Data)["sessionid"]);
-                if (this.debugMode)
-                    System.Diagnostics.Debug.WriteLine("retrieved session: " + this.sessionId);
+                if (resp.Data != null)
+                {
+                    this.sessionId = Convert.ToString(((Dictionary<string, object>)resp.Data)["sessionid"]);
+                    if (this.debugMode)
+                        System.Diagnostics.Debug.WriteLine("retrieved session: " + this.sessionId);
+                }
                 return true;
             });
         }
@@ -542,7 +545,7 @@ namespace Cloudbase
         /// <param name="document">The object to be serialized</param>
         /// <param name="fileAttachments">A list of attachments for the document</param>
         /// <param name="whenDone">The delegate to be called with the response once the request is completed</param>
-        public void InsertDocument(string collection, object document, List<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
+        public void InsertDocument(string collection, object document, IList<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
         {
             string url = this.getUrl() + this.appCode + "/" + collection + "/insert";
 
@@ -577,7 +580,7 @@ namespace Cloudbase
         /// <param name="collection">The name of the collection to search over</param>
         /// <param name="aggregateConditions">A set of conditions for the search</param>
         /// <param name="whenDone">The delegate to be called once the request is completed</param>
-        public void SearchDocumentAggregate(string collection, List<CBDataAggregationCommand> aggregateConditions, Func<CBResponseInfo, bool> whenDone)
+        public void SearchDocumentAggregate(string collection, IList<CBDataAggregationCommand> aggregateConditions, Func<CBResponseInfo, bool> whenDone)
         {
             List<Dictionary<string, object>> serializedAggregateConditions = new List<Dictionary<string, object>>();
 
@@ -618,7 +621,7 @@ namespace Cloudbase
         /// <param name="document">The document to be updated. Documents matching the search conditions will be replaced with this value</param>
         /// <param name="fileAttachments">A List of file attachments for the new documents</param>
         /// <param name="whenDone">The delegate to be called once the request is completed</param>
-        public void UpdateDocument(string collection, CBHelperSearchCondition conditions, object document, List<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
+        public void UpdateDocument(string collection, CBHelperSearchCondition conditions, object document, IList<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
         {
             string url = this.getUrl() + this.appCode + "/" + collection + "/update";
 
@@ -731,7 +734,7 @@ namespace Cloudbase
         /// <param name="Recipient">The email address of the recipient</param>
         /// <param name="Subject">The subject of the email</param>
         /// <param name="vars">A set of variables to fill the template</param>
-        public void SendEmail(string Template, string Recipient, string Subject, Dictionary<string, string> vars)
+        public void SendEmail(string Template, string Recipient, string Subject, IDictionary<string, string> vars)
         {
             string url = this.getUrl() + this.appCode + "/email";
             Dictionary<string, object> values = new Dictionary<string, object>();
@@ -750,7 +753,7 @@ namespace Cloudbase
         /// <param name="Params">Additional parameters to be passed to the function - these will be accessible to the function in the form
         /// of Http POST parameters</param>
         /// <param name="whenDone">This delegate will receive the output of the function once the execution is completed.</param>
-        public void ExecuteCloudFunction(string FunctionCode, Dictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
+        public void ExecuteCloudFunction(string FunctionCode, IDictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
         {
             string url = this.getUrl() + this.appCode + "/cloudfunction/" + FunctionCode;
 
@@ -762,7 +765,7 @@ namespace Cloudbase
         /// <param name="FunctionCode">The unique code identifying the applet on cloudbase.io</param>
         /// <param name="Params">Additional parameters to be passed to the applet</param>
         /// <param name="whenDone">This delegate will receive the output of the applet once the execution is completed.</param>
-        public void ExecuteApplet(string AppletCode, Dictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
+        public void ExecuteApplet(string AppletCode, IDictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
         {
             string url = this.getUrl() + this.appCode + "/applet/" + AppletCode;
 
@@ -776,7 +779,7 @@ namespace Cloudbase
         /// <param name="Password">The password for the Shared API if necessary</param>
         /// <param name="Params">Additional parameters to be passed to the Shared API</param>
         /// <param name="whenDone">This delegate will receive the output of the Shared API once the execution is completed.</param>
-        public void ExecuteSharedApi(string ApiCode, string Password, Dictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
+        public void ExecuteSharedApi(string ApiCode, string Password, IDictionary<string, string> Params, Func<CBResponseInfo, bool> whenDone)
         {
             string url = this.getUrl() + this.appCode + "/shared/" + ApiCode;
 
@@ -919,7 +922,7 @@ namespace Cloudbase
             return retval;
         }
 
-        private void prepareParameters(Stream sw, object postData, Dictionary<string, string> additionalParameters, List<CBHelperAttachment> files)
+        private void prepareParameters(Stream sw, object postData, IDictionary<string, string> additionalParameters, IList<CBHelperAttachment> files)
         {
             this.requestBodyForParameter(sw, "app_uniq", this.appUniq);
             this.requestBodyForParameter(sw, "app_pwd", this.password);
@@ -968,17 +971,17 @@ namespace Cloudbase
             writer.Flush();
         }
 
-        private void sendRequest(string function, string url, object postData, Dictionary<string, string> additionalPostParameters)
+        private void sendRequest(string function, string url, object postData, IDictionary<string, string> additionalPostParameters)
         {
             sendRequest(function, url, postData, additionalPostParameters, null, null, null);
         }
 
-        private void sendRequest(string function, string url, object postData, Dictionary<string, string> additionalPostParameters, List<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
+        private void sendRequest(string function, string url, object postData, IDictionary<string, string> additionalPostParameters, IList<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone)
         {
             sendRequest(function, url, postData, additionalPostParameters, fileAttachments, whenDone, null);
         }
 
-        private void sendRequest(string function, string url, object postData, Dictionary<string, string> additionalPostParameters, List<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone, Func<byte[], bool> downloadDone)
+        private void sendRequest(string function, string url, object postData, IDictionary<string, string> additionalPostParameters, IList<CBHelperAttachment> fileAttachments, Func<CBResponseInfo, bool> whenDone, Func<byte[], bool> downloadDone)
         {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.ContentType = "multipart/form-data; boundary=" + this.httpRequestBoundary;
@@ -998,57 +1001,79 @@ namespace Cloudbase
                 // Start the asynchronous operation to get the response
                 request.BeginGetResponse(new AsyncCallback(delegate(IAsyncResult responseResult)
                 {
-                    HttpWebRequest respReq = (HttpWebRequest)asynchronousResult.AsyncState;
-
-                    // End the operation
-                    HttpWebResponse response = (HttpWebResponse)respReq.EndGetResponse(responseResult);
-                    Stream streamResponse = response.GetResponseStream();
-
-                    if (function.Equals("download"))
+                    try
                     {
-                        byte[] responseBytes = new byte[streamResponse.Length];
-                        streamResponse.Read(responseBytes, 0, (int)streamResponse.Length);
+                        HttpWebRequest respReq = (HttpWebRequest)asynchronousResult.AsyncState;
 
-                        if (downloadDone != null)
+                        // End the operation
+                        HttpWebResponse response = (HttpWebResponse)respReq.EndGetResponse(responseResult);
+                        Stream streamResponse = response.GetResponseStream();
+
+                        if (function.Equals("download"))
                         {
-                            this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => downloadDone(responseBytes));
+                            byte[] responseBytes = new byte[streamResponse.Length];
+                            streamResponse.Read(responseBytes, 0, (int)streamResponse.Length);
+
+                            if (downloadDone != null)
+                            {
+                                this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => downloadDone(responseBytes));
+                            }
+                            streamResponse.FlushAsync();
                         }
-                        streamResponse.FlushAsync();
+                        else
+                        {
+                            StreamReader streamRead = new StreamReader(streamResponse);
+                            string responseString = streamRead.ReadToEnd();
+
+                            if (this.debugMode)
+                                System.Diagnostics.Debug.WriteLine("Response received: " + responseString);
+
+                            IDictionary<string, object> parsedObject = JsonConvert.DeserializeObject<IDictionary<string, object>>(
+                                    responseString, new JsonConverter[] { new CBJsonDictionaryConverter(), new CBJsonArrayConverter() });
+                            //Dictionary<string, object> parsedObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);//JsonConvert.DeserializeObject<Dictionary<string, string>>(output);//JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(output);
+
+                            if (this.debugMode)
+                                System.Diagnostics.Debug.WriteLine("oubject out: " + JsonConvert.SerializeObject(parsedObject));
+
+                            if (whenDone != null)
+                            {
+                                CBResponseInfo resp = new CBResponseInfo();
+                                resp.HttpStatus = (int)response.StatusCode;
+                                resp.Status = (Convert.ToString(((Dictionary<string, object>)parsedObject[function])["status"]).Equals("OK"));
+                                resp.CBFunction = function;
+                                resp.Data = ((Dictionary<string, object>)parsedObject[function])["message"];
+                                resp.OutputString = JsonConvert.SerializeObject(((Dictionary<string, object>)parsedObject[function])["message"]);
+
+                                if (this.Dispatcher == null)
+                                    whenDone(resp);
+                                else
+                                {
+                                    this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => whenDone(resp));
+                                }
+                                //whenDone(resp);
+                            }
+                            streamResponse.FlushAsync();
+                            //streamRead.Close();
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        StreamReader streamRead = new StreamReader(streamResponse);
-                        string responseString = streamRead.ReadToEnd();
-
-                        if (this.debugMode)
-                            System.Diagnostics.Debug.WriteLine("Response received: " + responseString);
-
-                        IDictionary<string, object> parsedObject = JsonConvert.DeserializeObject<IDictionary<string, object>>(
-                                responseString, new JsonConverter[] { new CBJsonDictionaryConverter(), new CBJsonArrayConverter() });
-                        //Dictionary<string, object> parsedObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(output);//JsonConvert.DeserializeObject<Dictionary<string, string>>(output);//JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(output);
-
-                        if (this.debugMode)
-                            System.Diagnostics.Debug.WriteLine("oubject out: " + JsonConvert.SerializeObject(parsedObject));
+                        if (this.DebugMode)
+                            System.Diagnostics.Debug.WriteLine("Error while receiving response: " + ex.Message);
 
                         if (whenDone != null)
                         {
                             CBResponseInfo resp = new CBResponseInfo();
-                            resp.HttpStatus = 200;
-                            resp.Status = (Convert.ToString(((Dictionary<string, object>)parsedObject[function])["status"]).Equals("OK"));
+                            resp.HttpStatus = 500;
+                            resp.ErrorMessage = ex.Message;
                             resp.CBFunction = function;
-                            resp.Data = ((Dictionary<string, object>)parsedObject[function])["message"];
-                            resp.OutputString = JsonConvert.SerializeObject(((Dictionary<string, object>)parsedObject[function])["message"]);
-
                             if (this.Dispatcher == null)
                                 whenDone(resp);
                             else
                             {
                                 this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => whenDone(resp));
                             }
-                            //whenDone(resp);
                         }
-                        streamResponse.FlushAsync();
-                        //streamRead.Close();
                     }
 
                     // Release the HttpWebResponse
